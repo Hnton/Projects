@@ -123,6 +123,9 @@ func writeToCSV(companies []Company) error {
 
 	// Write the rows
 	for _, company := range companies {
+		if company.Ticker == "" || company.Name == "" {
+			continue
+		}
 		err := writer.Write([]string{
 			company.Ticker,
 			company.Name,
