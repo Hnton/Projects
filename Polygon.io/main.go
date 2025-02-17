@@ -20,7 +20,7 @@ type Company struct {
 	Name           string
 	SICCode        string
 	Description    string
-	TotalEmployees uint64
+	TotalEmployees uint
 }
 
 // Parquet
@@ -32,8 +32,8 @@ type ParquetData struct {
 	Phone       string `parquet:"Phone"`
 	Homepage    string `parquet:"Homepage"`
 	Description string `parquet:"Description"`
-	Employees   uint64 `parquet:"Employees"`
-	RoundLot    uint64 `parquet:"RoundLot"`
+	Employees   uint   `parquet:"Employees"`
+	RoundLot    uint   `parquet:"RoundLot"`
 }
 
 // Read Protobuf File and convert to Company Struct
@@ -62,7 +62,7 @@ func readProtobufFile(filePath string) ([]Company, error) {
 			Name:           ticker.GetCompany(),
 			SICCode:        ticker.GetCode(),
 			Description:    ticker.GetDescription(),
-			TotalEmployees: ticker.GetSize(),
+			TotalEmployees: uint(ticker.GetSize()),
 		})
 	}
 
@@ -116,7 +116,7 @@ func writeToCSV(companies []Company) error {
 	defer writer.Flush()
 
 	// Write the header
-	err = writer.Write([]string{"Ticker", "Name", "SICCode", "Description", "TotalEmployees"})
+	err = writer.Write([]string{"ticker", "name", "sic_code", "description", "total_employees"})
 	if err != nil {
 		return err
 	}
