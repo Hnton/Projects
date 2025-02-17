@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"Polygon.io/helpers"
+)
 
 func main() {
-	fmt.Println("Hello, Polygon.io!")
+	helpers.Hello()
 }
